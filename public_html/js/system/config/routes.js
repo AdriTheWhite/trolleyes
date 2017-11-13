@@ -59,6 +59,10 @@ trolleyes.config(['$routeProvider', function ($routeProvider) {
 
         //--
         $routeProvider.when('/pedido/1/view/:id', {templateUrl: 'js/app/pedido/1/view.html', controller: 'PedidoView1Controller', resolve: {auth: authenticationAdministratorPromise}});
+        $routeProvider.when('/pedido/1/plist/:id', {templateUrl: 'js/app/plist/1/view.html', controller: 'PedidoPList1Controller', resolve: {auth: authenticationAdministratorPromise}});
         $routeProvider.when('/pedido/1/plistXusuario/:id_usuario/:page?/:rpp?', {templateUrl: 'js/app/pedido/1/Xusuario/plist.html', controller: 'PedidoXusuarioPList1Controller', resolve: {auth: authenticationAdministratorPromise}});
+        $routeProvider.when('/pedido/1/viewXusuario/:id_usuario/:page?/:rpp?', {templateUrl: 'js/app/pedido/1/Xusuario/view.html', controller: 'PedidoXusuarioView1Controller', resolve: {auth: authenticationAdministratorPromise}});
+        $routeProvider.when('/pedido/1/newXusuario/:id_usuario/:page?/:rpp?', {templateUrl: 'js/app/pedido/1/Xusuario/new.html', controller: 'PedidoXusuarioNew1Controller', resolve: {auth: authenticationAdministratorPromise}});
+        $routeProvider.when('/pedido/1/editXusuario/:id_usuario/:page?/:rpp?', {templateUrl: 'js/app/pedido/1/Xusuario/new.html', controller: 'PedidoXusuarioEdit1Controller', resolve: {auth: authenticationAdministratorPromise}});
         $routeProvider.otherwise({redirectTo: '/'});
     }]);
