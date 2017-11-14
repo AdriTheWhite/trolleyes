@@ -73,6 +73,9 @@ trolleyes.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/producto/1/edit/:id', {templateUrl: 'js/app/producto/1/edit.html', controller: 'ProductoEdit1Controller', resolve: {auth: authenticationAdministratorPromise}});
         $routeProvider.when('/producto/1/remove/:id', {templateUrl: 'js/app/producto/1/remove.html', controller: 'ProductoRemove1Controller', resolve: {auth: authenticationAdministratorPromise}});
         $routeProvider.when('/producto/1/new/:id?', {templateUrl: 'js/app/producto/1/new.html', controller: 'ProductoNew1Controller', resolve: {auth: authenticationAdministratorPromise}});
-
         
+        
+        //--
+        $routeProvider.when('/linea_pedido/1/plist/:page?/:rpp?', {templateUrl: 'js/app/linea_pedido/1/plist.html', controller: 'Linea_pedidoPList1Controller', resolve: {auth: authenticationAdministratorPromise}});                
+
     }]);
