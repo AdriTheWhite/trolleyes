@@ -196,13 +196,17 @@
                                                 <tr ng-repeat="obj in page| filter:searchText">
                                                     <td ng-show="visibles.id"><b>{{obj.id}}</b></td>
                                                     <td ng-show="visibles.cantidad"><b>{{obj.cantidad}}</b></td>
-                                                    <td ng-show="visibles.id_pedido">{{obj.id_pedido}}</td>
-                                                    
-                                                    
-                                                    
-                                                    <td ng-show="visibles.id_producto" class="text-center">
-                                                        <a href="producto/{{profile}}/view/{{obj.obj_tipousuario.id}}">{{obj.obj_tipousuario.fecha}}</a>
+                                                    <td ng-show="visibles.id_pedido" class="text-center">
+                                                        <a href="pedido/{{profile}}/view/{{obj.obj_pedido.id}}">{{obj.obj_pedido.id}}</a>
                                                     </td>
+                                                    <td ng-show="visibles.id_producto" class="text-center">
+                                                        <a href="producto/{{profile}}/view/{{obj.obj_producto.id}}">{{obj.obj_producto.id}}</a>
+                                                    </td>
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
                                                     <td>
                                                         <div class="btn-toolbar" role="toolbar">
                                                             <div class="btn-group">

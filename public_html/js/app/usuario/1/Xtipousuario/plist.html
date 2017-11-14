@@ -96,16 +96,27 @@
                                                         <label class="control-label col-sm-3" for="filterSelection">
                                                             Selecciona filtro:
                                                         </label>
-                                                        <select class="navbar-form navbar-left" ng-model="filterType" convert-to-number id="filterSelection">                                                            
-                                                            <option value="0">Filtrar por id o cantidad de iva</option>
-                                                            <option value="1">Filtrar por fecha</option>
-                                                            <option value="2">Filtrar por si tiene iva</option>
-                                                            <option value="3">Filtrar por usuario</option>                                                            
+                                                        <select class="navbar-form navbar-left" ng-model="filterType" convert-to-number id="filterSelection">
+                                                            <option value="0">Filtrar por dni, nombre, primer apellido, segundo apellido o login</option>
+                                                            <option value="1">Filtrar por id</option>
+                                                            <option value="2">Filtrar por fecha de nacimiento</option>
+                                                            <option value="3">Filtrar por tipo de usuario</option>                                                            
                                                         </select>
                                                     </form>
                                                 </div>
-                                                <div class="col-md-7">                                          
+                                                <div class="col-md-7">
                                                     <div ng-show="filterType == 0">
+                                                        <cplistfilterbystring
+                                                            url="url"
+                                                            fields="filterString"
+                                                            rpp="rpp"
+                                                            numpage="numpage"
+                                                            orderparams="orderParams"
+                                                            filterparams="filterParams">
+                                                        </cplistfilterbystring>
+                                                    </div>
+                                                    <p></p>
+                                                    <div ng-show="filterType == 1">
                                                         <cplistfilterbynumber
                                                             url="url"
                                                             fields="filterNumber"
@@ -116,7 +127,7 @@
                                                         </cplistfilterbynumber>
                                                     </div>
                                                     <p></p>
-                                                    <div ng-show="filterType == 1">
+                                                    <div ng-show="filterType == 2">
                                                         <cplistfilterbydate
                                                             url="url"
                                                             fields="filterDate"
@@ -127,21 +138,10 @@
                                                         </cplistfilterbydate>
                                                     </div>
                                                     <p></p>
-                                                    <div ng-show="filterType == 2">
-                                                        <cplistfilterbyboolean
-                                                            url="url"
-                                                            fields="filterBoolean"
-                                                            rpp="rpp"
-                                                            numpage="numpage"
-                                                            orderparams="orderParams"
-                                                            filterparams="filterParams">
-                                                        </cplistfilterbyboolean>
-                                                    </div>
-                                                    <p></p>
                                                     <div ng-show="filterType == 3">
                                                         <cplistfilterbyforeign
                                                             url="url"
-                                                            field="filterUsuario"
+                                                            field="filterTipousuario"
                                                             rpp="rpp"
                                                             numpage="numpage"
                                                             orderparams="orderParams"
@@ -167,7 +167,7 @@
                                             <div class="row">
                                                 <div class="col-md-12 text-center">
                                                     <p><br>
-                                                        <a class="btn btn-primary" href="{{ob}}/{{profile}}/newXusuario/{{xid}}/">Crear un nuevo {{ob}} para el usuario {{usuariobean.nombre}} {{usuariobean.primer_apellido}} {{usuariobean.segundo_apellido}} (dni:{{usuariobean.dni}})</a>
+                                                        <a class="btn btn-primary" href="{{ob}}/{{profile}}/new">Crear un nuevo {{ob}}</a>
                                                     </p>
                                                 </div>
                                             </div>
@@ -179,11 +179,15 @@
                                         <div class="panel-heading">
                                             <div class="text-center">
                                                 <ul class="list-inline">
-                                                    <li><input type="checkbox" ng-model="visibles.id" ng-checked="visibles.id">Identificador</li>
-                                                    <li><input type="checkbox" ng-model="visibles.fecha" ng-checked="visibles.fecha">Fecha de pedido</li>
-                                                    <li><input type="checkbox" ng-model="visibles.id_usuario" ng-checked="visibles.id_usuario" >Usuario cliente</li>
-                                                    <li><input type="checkbox" ng-model="visibles.tiene_iva" ng-checked="visibles.tiene_iva" >¿Lleva Iva?</li>
-                                                    <li><input type="checkbox" ng-model="visibles.iva" ng-checked="visibles.iva" >IVA</li>
+                                                    <li><input type="checkbox" ng-model="visibles.id" ng-checked="visibles.id">Ident.</li>
+                                                    <li><input type="checkbox" ng-model="visibles.dni" ng-checked="visibles.dni">DNI</li>
+                                                    <li><input type="checkbox" ng-model="visibles.nombre" ng-checked="visibles.nombre" >Nombre</li>
+                                                    <li><input type="checkbox" ng-model="visibles.primer_apellido" ng-checked="visibles.primer_apellido" >Primer_apellido</li>
+                                                    <li><input type="checkbox" ng-model="visibles.segundo_apellido" ng-checked="visibles.segundo_apellido" >Segundo_apellido</li>
+                                                    <li><input type="checkbox" ng-model="visibles.login" ng-checked="visibles.login" >Login</li>
+                                                    <li><input type="checkbox" ng-model="visibles.email" ng-checked="visibles.email">Email</li>
+                                                    <li><input type="checkbox" ng-model="visibles.fecha_nacimiento" ng-checked="visibles.fecha_nacimiento">Fecha de nacimiento</li>
+                                                    <li><input type="checkbox" ng-model="visibles.id_tipousuario" ng-checked="visibles.id_tipousuario">Tipo de usuario</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -194,41 +198,68 @@
                                                     <a ng-click="doorder('id', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
                                                     <a ng-click="doorder('id', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
                                                 </th>
-                                                <th ng-show="visibles.fecha" class="text-center">
-                                                    <label>Fecha</label><br/>
-                                                    <a ng-click="doorder('fecha', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
-                                                    <a ng-click="doorder('fecha', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
+                                                <th ng-show="visibles.dni" class="text-center">
+                                                    <label>DNI</label><br/>
+                                                    <a ng-click="doorder('dni', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
+                                                    <a ng-click="doorder('dni', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
                                                 </th>
-                                                <th ng-show="visibles.id_usuario" class="text-center">
-                                                    <label>Usuario</label><br/>
-                                                    <a ng-click="doorder('id_usuario', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
-                                                    <a ng-click="doorder('id_usuario', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
+                                                <th ng-show="visibles.nombre" class="text-center">
+                                                    <label>Nombre</label><br/>
+                                                    <a ng-click="doorder('nombre', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
+                                                    <a ng-click="doorder('nombre', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
                                                 </th>
-                                                <th ng-show="visibles.tiene_iva" class="text-center">
-                                                    <label>¿Tiene iva?</label><br/>
-                                                    <a ng-click="doorder('tiene_iva', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
-                                                    <a ng-click="doorder('tiene_iva', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
+                                                <th ng-show="visibles.primer_apellido" class="text-center">
+                                                    <label>Primer apellido</label><br/>
+                                                    <a ng-click="doorder('primer_apellido', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
+                                                    <a ng-click="doorder('primer_apellido', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
                                                 </th>
-                                                <th ng-show="visibles.iva" class="text-center">
-                                                    <label>iva</label><br/>
-                                                    <a ng-click="doorder('iva', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
-                                                    <a ng-click="doorder('iva', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
-                                                </th>                                              
+                                                <th ng-show="visibles.segundo_apellido" class="text-center">
+                                                    <label>Segundo apellido</label><br/>
+                                                    <a ng-click="doorder('segundo_apellido', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
+                                                    <a ng-click="doorder('segundo_apellido', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
+                                                </th>
+                                                <th ng-show="visibles.login" class="text-center">
+                                                    <label>Login</label><br/>
+                                                    <a ng-click="doorder('login', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
+                                                    <a ng-click="doorder('login', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
+                                                </th>
+                                                <th ng-show="visibles.email" class="text-center">
+                                                    <label>Email</label><br/>
+                                                    <a ng-click="doorder('email', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
+                                                    <a ng-click="doorder('email', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
+                                                </th>
+                                                <th ng-show="visibles.fecha_nacimiento" class="text-center">
+                                                    <label>Fecha de nacimiento</label><br/>
+                                                    <a ng-click="doorder('fecha_nacimiento', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
+                                                    <a ng-click="doorder('fecha_nacimiento', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
+                                                </th>
+                                                <th ng-show="visibles.id_tipousuario" class="text-center">
+                                                    <label>Tipo</label><br/>
+                                                    <a ng-click="doorder('id_tipousuario', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
+                                                    <a ng-click="doorder('id_tipousuario', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
+                                                </th>
                                                 <th  class="text-center">Acciones</th>
                                             </tr>
                                             <tbody>
                                                 <tr ng-repeat="obj in page| filter:searchText">
                                                     <td ng-show="visibles.id"><b>{{obj.id}}</b></td>
-                                                    <td ng-show="visibles.fecha"><b>{{obj.fecha}}</b></td>
-                                                    <td ng-show="visibles.id_usuario" class="text-center">
-                                                        <a href="usuario/{{profile}}/view/{{obj.obj_usuario.id}}">{{obj.obj_usuario.nombre}} {{obj.obj_usuario.primer_apellido}} {{obj.obj_usuario.segundo_apellido}} ({{obj.obj_usuario.dni}})</a>
-                                                    </td>                                                    
-                                                    <td ng-show="visibles.tiene_iva" class="text-center" ng-bind-html="obj.tiene_iva | booleanizate"></td>
-                                                    <td ng-show="visibles.iva">{{obj.iva}}</td>                                                   
+                                                    <td ng-show="visibles.dni"><b>{{obj.dni}}</b></td>
+                                                    <td ng-show="visibles.nombre">{{obj.nombre}}</td>
+                                                    <td ng-show="visibles.primer_apellido">{{obj.primer_apellido}}</td>
+                                                    <td ng-show="visibles.segundo_apellido">{{obj.segundo_apellido}}</td>
+                                                    <td ng-show="visibles.login">{{obj.login}}</td>
+                                                    <td ng-show="visibles.email">{{obj.email}}</td>
+                                                    <td ng-show="visibles.fecha_nacimiento">{{obj.fecha_nacimiento}}</td>
+                                                    <td ng-show="visibles.id_tipousuario" class="text-center">
+                                                        <a href="tipousuario/{{profile}}/view/{{obj.obj_tipousuario.id}}">{{obj.obj_tipousuario.descripcion}}</a>
+                                                    </td>
                                                     <td>
                                                         <div class="btn-toolbar" role="toolbar">
                                                             <div class="btn-group">
                                                                 <actions id="obj.id" name="ob"></actions>
+                                                                <a class="btn btn-default btn-xs" title="Pedidos" href="pedido/{{profile}}/plistXusuario/{{obj.id}}/1/10">
+                                                                    <span ng-class="objectService.getIcon('pedido')"></span>
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -247,9 +278,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
