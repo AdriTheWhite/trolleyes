@@ -108,27 +108,44 @@ THE SOFTWARE.
                         <div class="text-center">
                             <ul class="list-inline">
                                 <li><input type="checkbox" ng-model="visibles.id" ng-checked="visibles.id">ID.</li>
+                                <li><input type="checkbox" ng-model="visibles.fecha" ng-checked="visibles.fecha">Fecha de pedido</li>
+                                <li><input type="checkbox" ng-model="visibles.id_usuario" ng-checked="visibles.id_usuario" >Usuario cliente</li>
+                                
                             </ul>
                         </div>
                     </div>
-                    <table class="table table-responsive table-bordered table-hover table-striped table-condensed dataTable no-footer" style="font-size: 11px !important;">
-                        <tr>
-                            <th ng-show="visibles.id" class="text-center">
-                                <label>ID.</label><br/>
-                                <a ng-click="doorder('id', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
-                                <a ng-click="doorder('id', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
-                            </th>
-                                                                        
-                            <th  class="text-center">Acciones</th>
-                        </tr>
-                        <tbody>
-                            <tr ng-repeat="obj in page| filter:searchText">
-                                <td ng-show="visibles.id"><b>{{obj.id}}</b></td>
-                                                                                  
-                                <td plistoperationbarspa></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                   <table class="table table-responsive table-bordered table-hover table-striped table-condensed dataTable no-footer">
+                                            <tr>
+                                                <th ng-show="visibles.id" class="text-center">
+                                                    <label>ID.</label><br/>
+                                                    <a ng-click="doorder('id', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
+                                                    <a ng-click="doorder('id', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
+                                                </th>
+                                                <th ng-show="visibles.fecha" class="text-center">
+                                                    <label>Fecha</label><br/>
+                                                    <a ng-click="doorder('fecha', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
+                                                    <a ng-click="doorder('fecha', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
+                                                </th>
+                                                <th ng-show="visibles.id_usuario" class="text-center">
+                                                    <label>Usuario</label><br/>
+                                                    <a ng-click="doorder('id_usuario', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
+                                                    <a ng-click="doorder('id_usuario', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
+                                                </th>
+                                                                                    
+                                                <th  class="text-center">Acciones</th>
+                                            </tr>
+                                            <tbody>
+                                                <tr ng-repeat="obj in page| filter:searchText">
+                                                    <td ng-show="visibles.id"><b>{{obj.id}}</b></td>
+                                                    <td ng-show="visibles.fecha"><b>{{obj.fecha}}</b></td>
+                                                    <td ng-show="visibles.id_usuario" class="text-center">
+                                                        <a href="usuario/{{profile}}/view/{{obj.obj_usuario.id}}">{{obj.obj_usuario.nombre}} {{obj.obj_usuario.primer_apellido}} {{obj.obj_usuario.segundo_apellido}} ({{obj.obj_usuario.dni}})</a>
+                                                    </td>                                                    
+                                                                                                     
+                                                    <td plistoperationbarspa></td>
+                                                </tr>
+                                            </tbody>
+                 </table>
                 </div>
             </div>
         </div>
