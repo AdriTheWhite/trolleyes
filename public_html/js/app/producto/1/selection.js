@@ -34,7 +34,7 @@ moduloProducto.controller('ProductoSelection1Controller',
                 $scope.ob = 'producto';
                 $scope.op = "selection";
                 //---
-                $scope.numpage = 1;
+                 $scope.numpage = 1;
                 $scope.rpp = 10;
                 $scope.neighbourhood = 1;
                 //---

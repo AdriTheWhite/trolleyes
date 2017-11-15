@@ -1,8 +1,7 @@
 'use strict';
-moduloDirectivas.component('cplistfilterbyforeign', {
+moduloDirectivas.component('plistfilterbyforeignspa', {
     restrict: 'E',
     bindings: {
-        url: '<',
         field: '<',
         rpp: '<',
         numpage: '<',
@@ -10,11 +9,11 @@ moduloDirectivas.component('cplistfilterbyforeign', {
         filterparams: '<',
         profile: '<'
     },
-    templateUrl: 'js/system/component/plist/cplistfilterbyforeign.html',
+    templateUrl: 'js/system/component/plistspa/plistfilterbyforeignspa.html',
     controllerAs: 'filterbyforeign',
     controller:
-            ['$location',
-                function ($location) {
+            ['$rootScope',
+                function ($rootScope) {
                     var self = this;
                     self.operator = "";
 
@@ -28,11 +27,7 @@ moduloDirectivas.component('cplistfilterbyforeign', {
                     self.dofilter = function () {
                         if (self.operator != "" && self.value != "") {
                             var newFilter = self.filterparams + "+and," + self.field.name + "," + self.operator + "," + self.obj_foreign.id;
-                            if (self.orderparams) {
-                                $location.path(self.url + '/' + self.numpage + '/' + self.rpp).search('filter', newFilter).search('order', self.orderparams);
-                            } else {
-                                $location.path(self.url + '/' + self.numpage + '/' + self.rpp).search('filter', newFilter);
-                            }
+                            $rootScope.$broadcast('filterSelectionEvent', newFilter);
                         }
                         return false;
                     };

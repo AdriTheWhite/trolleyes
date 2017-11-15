@@ -103,27 +103,22 @@
                             
                             
                             <!------------------------------------------------->
-                             <div class="form-group" id="tiene_iva-groupiva"
-                                 ng-class="{'has-error':(outerForm.tiene_iva.$error.pattern && !outerForm.tiene_iva.$pristine) ||
-                                             (outerForm.tiene_iva.$error.required && !outerForm.tiene_iva.$pristine)}">
-                                <label class="control-label col-sm-2" for="login">
-                                    * Tiene iva ?
-                                </label>
+                             <div class="form-group" id="tiene_iva-group"
+                                 ng-class="{'has-error':(outerForm.tiene_iva.$error.required && !outerForm.tiene_iva.$pristine)}">
+                                <label class="control-label col-sm-2" for="tiene_iva">
+                                    <span ng-show="true">*</span>
+                                    ¿Tiene IVA?
+                                </label> 
                                 <div class="control col-sm-3">
-                                    <input ng-model="bean.tiene_iva"
-                                           type="text"
-                                           class="form-control"
-                                           id="tiene_iva-group"
-                                           name="tiene_iva"
-                                           ng-pattern="/^[0-1]+$/"
-                                           placeholder="Tiene iva ?"
-                                           maxlength="100"
-                                           ng-required="true"
-                                           />
+                                    <input  
+                                        ng-model="bean.tiene_iva" 
+                                        type="checkbox" 
+                                        id="tiene_iva" 
+                                        name="tiene_iva">
                                     <span class="help-block" ng-if="!outerForm.tiene_iva.$pristine && outerForm.tiene_iva.$error.required">El campo es obligatorio</span>
-                                    <span class="help-block" ng-if="!outerForm.tiene_iva.$pristine && outerForm.tiene_iva.$error.pattern">El campo no tiene formato adecuado: 0 para falso 1 para verdadero</span>
                                 </div>
                             </div>
+                            
                             
                             <!------------------------------------------------->
                             <div class="control-group text-right">
