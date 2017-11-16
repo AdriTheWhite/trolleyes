@@ -39,7 +39,8 @@ moduloLinea_pedido.controller('Linea_pedidoNew1Controller',
                 $scope.url = $scope.ob + '/' + $scope.profile + '/' + $scope.op;
                 //---
                 $scope.bean = {};
-                $scope.bean.obj_tipousuario = {"id": 0};
+                $scope.bean.obj_producto = {"id": 0};
+                $scope.bean.obj_pedido = {"id": 0};
                 //---
                 $scope.objectService = objectService;
                 //---

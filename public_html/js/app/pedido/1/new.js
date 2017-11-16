@@ -40,6 +40,7 @@ moduloPedido.controller('PedidoNew1Controller',
                 //---
                 $scope.bean = {};
                 $scope.bean.obj_tipousuario = {"id": 0};
+                $scope.bean.obj_usuario = {"id": 0};
                 //---
                 $scope.objectService = objectService;
                 //---

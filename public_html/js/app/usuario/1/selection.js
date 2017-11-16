@@ -44,15 +44,23 @@ moduloUsuario.controller('UsuarioSelection1Controller',
                 $scope.orderParams = null;
                 $scope.filterParams = null;
 
-                $scope.visibles = {};
+               $scope.visibles = {};
                 $scope.visibles.id = true;
-                $scope.visibles.descripcion = true;
-                $scope.visibles.fecha = true;
-                $scope.visibles.id_usuario = true;
+                $scope.visibles.dni = true;
+                $scope.visibles.nombre = true;
+                $scope.visibles.primer_apellido = true;
+                $scope.visibles.segundo_apellido = true;
+                $scope.visibles.login = true;
+                $scope.visibles.email = true;
+                $scope.visibles.fecha_nacimiento = false;
+                $scope.visibles.id_tipousuario = true;
 
-                $scope.filterString = [{'name': 'descripcion', 'longname': 'Descripción'}];
+                $scope.filterString = [{'name': 'dni', 'longname': 'DNI'}, {'name': 'nombre', 'longname': 'Nombre'}, {'name': 'primer_apellido', 'longname': 'Primer apellido'}, {'name': 'segundo_apellido', 'longname': 'Segundo apellido'}, {'name': 'login', 'longname': 'Login'}];
                 $scope.filterNumber = [{'name': 'id', 'longname': 'Identificador'}];
-
+                $scope.filterDate = [{'name': 'fecha_nacimiento', 'longname': 'Fecha de nacimiento'}];
+                $scope.filterBoolean = null;
+                $scope.filterTipousuario = {'name':'id_tipousuario','longname':'Tipo de usuario','reference':'tipousuario','description':['descripcion']};
+                
                 $scope.closeForm = function (id) {
                     $modalInstance.close(id);
                 };

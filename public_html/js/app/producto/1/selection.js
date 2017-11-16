@@ -44,9 +44,19 @@ moduloProducto.controller('ProductoSelection1Controller',
                 $scope.orderParams = null;
                 $scope.filterParams = null;
 
+                $scope.filterString = [{'name': 'codigo', 'longname': 'Código'}, {'name': 'descripcion', 'longname': 'Descripcion'}, {'name': 'existencias', 'longname': 'Existencias'}, {'name': 'precio', 'longname': 'Precio'}];
+                $scope.filterNumber = [{'name': 'id', 'longname': 'Identificador'}];
+                $scope.filterDate = null;
+                $scope.filterBoolean = null;
+                $scope.filterTipousuario = null;
+                
+                //---
                 $scope.visibles = {};
                 $scope.visibles.id = true;
+                $scope.visibles.codigo = true;
                 $scope.visibles.descripcion = true;
+                $scope.visibles.existencias = true;
+                $scope.visibles.precio = true;
 
                 $scope.closeForm = function (id) {
                     $modalInstance.close(id);
