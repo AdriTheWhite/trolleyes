@@ -44,7 +44,7 @@ moduloUsuario.controller('UsuarioSelection1Controller',
                 $scope.orderParams = null;
                 $scope.filterParams = null;
 
-               $scope.visibles = {};
+                $scope.visibles = {};
                 $scope.visibles.id = true;
                 $scope.visibles.dni = true;
                 $scope.visibles.nombre = true;
@@ -59,8 +59,8 @@ moduloUsuario.controller('UsuarioSelection1Controller',
                 $scope.filterNumber = [{'name': 'id', 'longname': 'Identificador'}];
                 $scope.filterDate = [{'name': 'fecha_nacimiento', 'longname': 'Fecha de nacimiento'}];
                 $scope.filterBoolean = null;
-                $scope.filterTipousuario = {'name':'id_tipousuario','longname':'Tipo de usuario','reference':'tipousuario','description':['descripcion']};
-                
+                $scope.filterTipousuario = {'name': 'id_tipousuario', 'longname': 'Tipo de usuario', 'reference': 'tipousuario', 'description': ['descripcion']};
+
                 $scope.closeForm = function (id) {
                     $modalInstance.close(id);
                 };
