@@ -34,7 +34,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <header ob="ob" title="'Listado de ' + objectService.getName(ob)"></header>
+                        <header ob="ob" title="'Listado de ' + objectService.getName(ob) + ' para el producto ' + productobean.descripcion"></header>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -96,26 +96,15 @@
                                                         <label class="control-label col-sm-3" for="filterSelection">
                                                             Selecciona filtro:
                                                         </label>
-                                                        <select class="navbar-form navbar-left" ng-model="filterType" convert-to-number id="filterSelection">
-                                                            <option value="0">Filtrar por cantidad</option>
-                                                            <option value="1">Filtrar por id</option>
-                                                                                                                     
+                                                        <select class="navbar-form navbar-left" ng-model="filterType" convert-to-number id="filterSelection">                                                            
+                                                            <option value="0">Filtrar por número</option>
+                                                            <option value="1">Filtrar por pedido</option>
+                                                            <option value="2">Filtrar por producto</option>                                                                
                                                         </select>
                                                     </form>
                                                 </div>
-                                                <div class="col-md-7">
+                                                <div class="col-md-7">                                          
                                                     <div ng-show="filterType == 0">
-                                                        <cplistfilterbystring
-                                                            url="url"
-                                                            fields="filterString"
-                                                            rpp="rpp"
-                                                            numpage="numpage"
-                                                            orderparams="orderParams"
-                                                            filterparams="filterParams">
-                                                        </cplistfilterbystring>
-                                                    </div>
-                                                    <p></p>
-                                                    <div ng-show="filterType == 1">
                                                         <cplistfilterbynumber
                                                             url="url"
                                                             fields="filterNumber"
@@ -126,9 +115,31 @@
                                                         </cplistfilterbynumber>
                                                     </div>
                                                     <p></p>
-                                                    
-                                                    
-                                                    
+                                       
+                                                    <div ng-show="filterType == 1">
+                                                        <cplistfilterbyforeign
+                                                            url="url"
+                                                            field="filterPedido"
+                                                            rpp="rpp"
+                                                            numpage="numpage"
+                                                            orderparams="orderParams"
+                                                            filterparams="filterParams"
+                                                            profile="profile">
+                                                        </cplistfilterbyforeign>
+                                                    </div>
+                                                    <p></p>
+                                       
+                                                    <div ng-show="filterType == 2">
+                                                        <cplistfilterbyforeign
+                                                            url="url"
+                                                            field="filterProducto"
+                                                            rpp="rpp"
+                                                            numpage="numpage"
+                                                            orderparams="orderParams"
+                                                            filterparams="filterParams"
+                                                            profile="profile">
+                                                        </cplistfilterbyforeign>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -147,7 +158,7 @@
                                             <div class="row">
                                                 <div class="col-md-12 text-center">
                                                     <p><br>
-                                                        <a class="btn btn-primary" href="{{ob}}/{{profile}}/new">Crear un nuevo {{ob}}</a>
+                                                        <a class="btn btn-primary" href="{{ob}}/{{profile}}/newXproducto/{{xid}}/">Crear un nuevo {{ob}} para el producto de id {{productobean.id}}</a>
                                                     </p>
                                                 </div>
                                             </div>
@@ -159,11 +170,13 @@
                                         <div class="panel-heading">
                                             <div class="text-center">
                                                 <ul class="list-inline">
-                                                    <li><input type="checkbox" ng-model="visibles.id" ng-checked="visibles.id">Ident.</li>
+                                                    <li><input type="checkbox" ng-model="visibles.id" ng-checked="visibles.id">Identificador</li>
                                                     <li><input type="checkbox" ng-model="visibles.cantidad" ng-checked="visibles.cantidad">Cantidad</li>
-                                                    <li><input type="checkbox" ng-model="visibles.id_pedido" ng-checked="visibles.id_pedido" >ID del pedido</li>
-                                                    <li><input type="checkbox" ng-model="visibles.id_producto" ng-checked="visibles.id_producto" >ID del producto</li>
-                                                    </ul>
+                                                    <li><input type="checkbox" ng-model="visibles.id_pedido" ng-checked="visibles.id_pedido" >Pedido</li>
+                                                    <li><input type="checkbox" ng-model="visibles.id_producto" ng-checked="visibles.id_producto" >Producto</li>
+
+                                                    
+                                                </ul>
                                             </div>
                                         </div>
                                         <table class="table table-responsive table-bordered table-hover table-striped table-condensed dataTable no-footer">
@@ -179,17 +192,16 @@
                                                     <a ng-click="doorder('cantidad', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
                                                 </th>
                                                 <th ng-show="visibles.id_pedido" class="text-center">
-                                                    <label>ID del pedido</label><br/>
+                                                    <label>Pedido</label><br/>
                                                     <a ng-click="doorder('id_pedido', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
                                                     <a ng-click="doorder('id_pedido', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
                                                 </th>
                                                 <th ng-show="visibles.id_producto" class="text-center">
-                                                    <label>ID del producto</label><br/>
+                                                    <label>Producto</label><br/>
                                                     <a ng-click="doorder('id_producto', 'asc')"><i class="glyphicon glyphicon-arrow-up"></i></a>
                                                     <a ng-click="doorder('id_producto', 'desc')"><i class="glyphicon glyphicon-arrow-down"></i></a>
                                                 </th>
-                                                
-                                                
+                                                                                            
                                                 <th  class="text-center">Acciones</th>
                                             </tr>
                                             <tbody>
@@ -197,21 +209,16 @@
                                                     <td ng-show="visibles.id"><b>{{obj.id}}</b></td>
                                                     <td ng-show="visibles.cantidad"><b>{{obj.cantidad}}</b></td>
                                                     <td ng-show="visibles.id_pedido" class="text-center">
-                                                        <a href="pedido/{{profile}}/view/{{obj.obj_pedido.id}}">{{obj.obj_pedido.id}}</a>
+                                                        <a href="pedido/{{profile}}/view/{{obj.obj_pedido.id}}">{{obj.obj_pedido.iva}}</a>
                                                     </td>
                                                     <td ng-show="visibles.id_producto" class="text-center">
-                                                        <a href="producto/{{profile}}/view/{{obj.obj_producto.id}}">{{obj.obj_producto.id}} ({{obj.obj_producto.descripcion}})</a>
-                                                    </td>
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
+                                                        <a href="producto/{{profile}}/view/{{obj.obj_producto.id}}">{{obj.obj_producto.descripcion}}</a>
+                                                    </td>  
+                                                                                                     
                                                     <td>
                                                         <div class="btn-toolbar" role="toolbar">
                                                             <div class="btn-group">
                                                                 <actions id="obj.id" name="ob"></actions>
-                                                                
                                                             </div>
                                                         </div>
                                                     </td>
@@ -230,9 +237,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-

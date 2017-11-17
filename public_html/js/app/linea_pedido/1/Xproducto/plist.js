@@ -25,20 +25,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 'use strict';
-moduloLinea_pedido.controller('Linea_pedidoXpedidoPList1Controller',
+moduloLinea_pedido.controller('Linea_pedidoXproductoPList1Controller',
         ['$scope', '$routeParams', '$location', 'serverCallService', 'toolService', 'constantService', 'objectService',
             function ($scope, $routeParams, $location, serverCallService, toolService, constantService, objectService) {
                 $scope.ob = "linea_pedido";
-                $scope.op = "plistXpedido";
+                $scope.op = "plistXproducto";
                 $scope.profile = 1;
                 //---
                 $scope.status = null;
                 $scope.debugging = constantService.debugging();
                 $scope.url = $scope.ob + '/' + $scope.profile + '/' + $scope.op + '/' + $routeParams.id_usuario;
                 //----
-                $scope.xob = "pedido";
-                $scope.xid = $routeParams.id_pedido;
+                $scope.xob = "producto";
+                $scope.xid = $routeParams.id_producto;
                 //----
                 $scope.numpage = toolService.checkDefault(1, $routeParams.page);
                 $scope.rpp = toolService.checkDefault(10, $routeParams.rpp);
@@ -47,17 +48,17 @@ moduloLinea_pedido.controller('Linea_pedidoXpedidoPList1Controller',
                 $scope.orderParams = toolService.checkEmptyString($routeParams.order);
                 $scope.filterParams = toolService.checkEmptyString($routeParams.filter);
                 //---
-                $scope.filterString = [{'name': 'cantidad', 'longname': 'Cantidad'}];
-                $scope.filterNumber = [{'name': 'id', 'longname': 'Identificador'}];
-                $scope.filterDate = null;
-                $scope.filterBoolean = null;
-                
-                //---
                 $scope.visibles = {};
                 $scope.visibles.id = true;
                 $scope.visibles.cantidad = true;
                 $scope.visibles.id_pedido = true;
                 $scope.visibles.id_producto = true;
+                
+                //--
+                $scope.filterString = null;
+                $scope.filterNumber = [{'name': 'id', 'longname': 'Identificador'},{'name': 'cantidad', 'longname': 'Cantidad'}];
+                $scope.filterPedido = {'name': 'id_pedido', 'longname': 'Pedido', 'reference': 'pedido', 'description': ['id', 'iva']};
+                $scope.filterProducto = {'name': 'id_producto', 'longname': 'Producto', 'reference': 'producto', 'description': ['id', 'descripcion']};
                 //---
                 $scope.objectService = objectService;
                 //---
@@ -66,7 +67,7 @@ moduloLinea_pedido.controller('Linea_pedidoXpedidoPList1Controller',
                         if (response.status == 200) {
                             if (response.data.status == 200) {
                                 $scope.status = null;
-                                $scope.usuariobean = response.data.json;
+                                $scope.productobean = response.data.json;
                             } else {
                                 $scope.status = "Error en la recepción de datos del servidor";
                             }
@@ -108,5 +109,4 @@ moduloLinea_pedido.controller('Linea_pedidoXpedidoPList1Controller',
                 getDataFromServer();
             }
         ]);
-
 
