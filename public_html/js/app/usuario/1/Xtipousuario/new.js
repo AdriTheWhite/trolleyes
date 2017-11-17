@@ -27,22 +27,22 @@
  */
 'use strict';
 
-moduloPedido.controller('PedidoXusuarioNew1Controller',
+moduloUsuario.controller('UsuarioXtipousuarioNew1Controller',
         ['$scope', '$routeParams', '$location', 'serverCallService', '$filter', '$uibModal', 'sessionService', '$route', 'toolService', 'constantService', 'objectService',
             function ($scope, $routeParams, $location, serverCallService, $filter, $uibModal, sessionService, $route, toolService, constantService, objectService) {
-                $scope.ob = "pedido";
-                $scope.op = "newXusuario";
+                $scope.ob = "usuario";
+                $scope.op = "newXtipousuario";
                 $scope.profile = 1;
                 //---
                 $scope.status = null;
                 $scope.debugging = constantService.debugging();
                 //$scope.url = $scope.ob + '/' + $scope.profile + '/' + $scope.op;
                 //---
-                $scope.xob = "usuario";
-                $scope.xid = $routeParams.id_usuario;
+                $scope.xob = "tipousuario";
+                $scope.xid = $routeParams.id_tipousuario;
                 //--
                 $scope.bean = {};
-                $scope.bean.obj_usuario = {"id": $scope.xid};
+                $scope.bean.obj_tipousuario = {"id": $scope.xid};
                 //---
                 $scope.objectService = objectService;
                 //---
@@ -50,7 +50,7 @@ moduloPedido.controller('PedidoXusuarioNew1Controller',
                     if (response.status == 200) {
                         if (response.data.status == 200) {
                             $scope.status = null;
-                            $scope.usuariobean = response.data.json;
+                            $scope.tipousuariobean = response.data.json;
                         } else {
                             $scope.status = "Error en la recepción de datos del servidor";
                         }

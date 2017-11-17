@@ -1,0 +1,17 @@
+<div id="{{fk.name}}_group" class="input-group foreign control">
+                                           
+    <input type="text" 
+           class="form-control" 
+           id="{{fk.name}}" 
+           name="{{fk.name}}"
+           ng-model-options="{debounce: 1000}" 
+           ng-model="fk.bean.id"
+           ng-change="fk.change_value()"
+           ng-required="{{fk.required}}"    
+           size="5" 
+           maxlength="5"
+           disabled>                                        
+    <span class="input-group-addon">
+        <span>{{fk.desc}}</span>
+    </span> 
+</div>
