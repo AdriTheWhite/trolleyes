@@ -25,34 +25,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-'use strict';
-
-var trolleyes = angular.module('myApp', [
-    'ngRoute',
-    'Filters',
-    'Services',
-    'Directives',
-    'systemControllers',
-    'usuarioControllers',
-    'tipousuarioControllers',
-    'pedidoControllers',
-    'productoControllers',
-    'linea_pedidoControllers',
-    'carritoControllers',
-    'ui.bootstrap',
-    'ngSanitize',
-    'chart.js'
-]);
-//-------------
-var moduloSistema = angular.module('systemControllers', []);
-//-------------
-var moduloDirectivas = angular.module('Directives', []);
-var moduloServicios = angular.module('Services', []);
-var moduloFiltros = angular.module('Filters', []);
-//-------------
-var moduloUsuario = angular.module('usuarioControllers', []);
-var moduloTipousuario = angular.module('tipousuarioControllers', []);
-var moduloPedido = angular.module('pedidoControllers', []);
-var moduloProducto = angular.module('productoControllers', []);
-var moduloLinea_pedido = angular.module('linea_pedidoControllers', []);
-var moduloCarrito = angular.module('carritoControllers', []);
+moduloDirectivas.component('actions2', {
+    templateUrl: "js/system/component/actions/actions2.html",
+    controllerAs: 'act',
+    controller: actions,
+    bindings:
+            {
+                id: '<',
+                name: '<'
+            }
+});
+function actions(constantService, sessionService) {
+    var self = this;
+    self.appurl = constantService.getCAppUrl();
+    self.session_info = sessionService.getSessionInfo();
+    self.isSessionActive = sessionService.isSessionActive();
+}

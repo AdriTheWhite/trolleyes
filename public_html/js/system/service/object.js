@@ -35,16 +35,26 @@ moduloServicios.factory('objectService', function () {
                     break;
                 case "tipousuario":
                     return 'fa fa-user-o';
-                    break;              
+                    break;
                 case "pedido":
                     return 'fa fa-sticky-note-o ';
-                    break;              
+                    break;
                 case "producto":
-                    return 'fa fa-product-hunt ';
-                    break;              
+                    return 'fa  fa-product-hunt';
+                    break;
                 case "linea_pedido":
-                    return 'fa fa-list ';
-                    break;              
+                    return 'fa fa-list';
+                    break;
+                case "carrito":
+                    return 'fa fa-cart-plus';
+                    break;
+                case "anyadir":
+                    return 'fa fa-shopping-cart';
+                    break;
+                    
+                case "vista":
+                return 'fa fa-eye';
+                break;
                 default:
                     return null;
             }
@@ -56,16 +66,19 @@ moduloServicios.factory('objectService', function () {
                     break;
                 case "tipousuario":
                     return "Tipo de usuario";
-                    break;               
+                    break;
                 case "pedido":
                     return "Pedido";
-                    break;               
+                    break;
                 case "producto":
                     return "Producto";
-                    break;               
+                    break;
                 case "linea_pedido":
-                    return "Linea de Pedidos";
-                    break;               
+                    return "Linea de pedido";
+                    break;
+                case "carrito":
+                    return "Carrito";
+                    break;
                 default:
                     return null;
             }
